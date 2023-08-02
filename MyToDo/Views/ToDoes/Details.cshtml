@@ -1,0 +1,49 @@
+﻿@model MyToDo.Models.ToDo
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="p-3 mb-2 bg-secondary text-white" style="width:75%;margin:auto; border-radius:3% 3%;">
+    <h2>Details</h2>
+
+    @using (Html.BeginForm("Details", "ToDoes"))
+    {
+
+        <table class="table">
+            <tr>
+            <thead>
+            <th class="text-white bg-dark">@Html.DisplayNameFor(m => m.Title)</th>
+            <th class="text-white bg-dark">@Html.DisplayNameFor(model => model.Description)</th>
+            <th class="text-white bg-dark">@Html.DisplayNameFor(model => model.DueDate)</th>
+            <th class="text-white bg-dark">@Html.DisplayNameFor(model => model.Status)</th>
+            </thead>
+            </tr>
+
+
+
+            <tbody>
+                <tr>
+                    <td class="text-white bg-dark">@Html.DisplayFor(modelItem => Model.Title)</td>
+                    <td class="text-white bg-dark">@Html.DisplayFor(modelItem => Model.Description)</td>
+                    <td class="text-white bg-dark">@Html.DisplayFor(modelItem => Model.DueDate)</td>
+                    @{
+                        String status;
+                    }
+                    @if (Model.Status)
+                    {
+                        status = "Completed";
+                    }
+                    else { status = "Not Completed Yet"; }
+
+                    <td class="text-white bg-dark">@status</td>
+
+                </tr>
+
+
+
+
+
+            </tbody>
+        </table>
+    }
+    </div>

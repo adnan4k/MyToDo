@@ -1,0 +1,49 @@
+﻿@model MyToDo.Models.ToDo
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="p-3 mb-2 bg-secondary text-white" style="width:75%;margin:auto; border-radius:3% 3%;">
+    <h2 class="text-dark">Delete</h2>
+    <div>
+
+        <hr />
+        <dl class="dl-horizontal">
+            <dt class="text-dark">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+
+            <dt class="text-dark">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="text-dark">
+                @Html.DisplayNameFor(model => model.DueDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DueDate)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default btn btn-info" onclick="return confirm('Are sure want to delete the task?');" /> |
+                @Html.ActionLink("Back to List", "Index",null, new { @class = "btn btn-info" })
+            </div>
+        }
+    </div>
+</div>

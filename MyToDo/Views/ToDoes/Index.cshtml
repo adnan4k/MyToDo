@@ -1,0 +1,92 @@
+﻿@model IEnumerable<MyToDo.Models.ToDo>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="p-3 mb-2 bg-secondary text-white" style="width:75%;margin:auto; border-radius:3% 3%;">
+
+
+
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th scope="col" style="font-size:25px;">Status</th>
+                <th scope="col" style="font-size:25px;">Title</th>
+                <th scope="col" style="font-size:25px;">Delete</th>
+                <th scope="col" style="font-size:25px;">Edit</th>
+                <th scope="col" style="font-size:25px;">Details</th>
+
+
+            </tr>
+        </thead>
+
+
+
+
+        <tbody>
+
+            <tr>
+                @foreach (var item in Model)
+                {
+
+
+                <tr>
+                    @using (Html.BeginForm())
+                    {
+
+
+
+                        @Html.Hidden("id", item.Id)
+
+                        <td><input type="checkbox" data-id="@item.Id" value="@item.Id" @(item.Status ? "checked" : "") class="check-box form-control check-box-input form-check-input" /></td>
+
+                        <td class="text-white ">@Html.DisplayFor(modelItem => item.Title, new { @class = "text-center" })</td>
+
+                        <td>@Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-info" })</td>
+                        <td>@Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-info" })</td>
+                        <td>@Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })</td>
+
+
+
+
+                    }
+                </tr>
+                
+                       }
+                </tr>
+            </tbody>
+        </table>
+
+
+        @Html.ActionLink("Add Tasks", "Create", null, new { @class = "btn btn-info" })
+
+
+
+
+    </div>
+
+    @section scripts {
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+        $(document).ready(function () {
+            $(".checkbox-item").on("change", function () {
+                var id = $(this).data("id");
+                var status = $(this).prop("checked");
+
+                $.ajax({
+                    url: "@Url.Action("Index", "ToDoes")",
+                    type: "POST",
+                    data: { id: id, status: status },
+                    success: function (result) {
+                        item.Status = result;
+                    },
+                    error: function () {
+                       
+                    }
+                });
+            });
+        });
+        </script>
+    }
